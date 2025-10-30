@@ -46,28 +46,23 @@ export default function Home() {
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const backgroundClass = BACKGROUND_STYLES[theme.background].className;
 
-  // Redirect to signin if not authenticated (wait for auth to finish loading)
-  useEffect(() => {
-    if (isHydrated && !loading && !user) {
-      router.push('/signin');
-    }
-  }, [user, loading, isHydrated, router]);
+  // No auth required - users can access immediately
 
-  const [selectedIds, setSelectedIds] = useLocalStorage<string[]>('ai-fiesta:selected-models', [
+  const [selectedIds, setSelectedIds] = useLocalStorage<string[]>('ai-crysta:selected-models', [
     'open-gpt-5-nano', // GPT-5 Nano
     'open-midijourney', // Midjourney
     'open-evil',
     'open-mistral', // Mistral Small 3.1
     'open-llamascout', // Llama Scout
   ]);
-  const [keys] = useLocalStorage<ApiKeys>('ai-fiesta:keys', {});
-  const [threads, setThreads] = useLocalStorage<ChatThread[]>('ai-fiesta:threads', []);
-  const [activeId, setActiveId] = useLocalStorage<string | null>('ai-fiesta:active-thread', null);
-  const [sidebarOpen, setSidebarOpen] = useLocalStorage<boolean>('ai-fiesta:sidebar-open', true);
+  const [keys] = useLocalStorage<ApiKeys>('ai-crysta:keys', {});
+  const [threads, setThreads] = useLocalStorage<ChatThread[]>('ai-crysta:threads', []);
+  const [activeId, setActiveId] = useLocalStorage<string | null>('ai-crysta:active-thread', null);
+  const [sidebarOpen, setSidebarOpen] = useLocalStorage<boolean>('ai-crysta:sidebar-open', true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [modelsModalOpen, setModelsModalOpen] = useState(false);
   const [selectedVoice, setSelectedVoice] = useLocalStorage<string>(
-    'ai-fiesta:selected-voice',
+    'ai-crysta:selected-voice',
     'alloy',
   );
 
@@ -141,7 +136,7 @@ export default function Home() {
   const anyLoading = loadingIds.length > 0;
 
   const [firstNoteDismissed, setFirstNoteDismissed] = useLocalStorage<boolean>(
-    'ai-fiesta:first-visit-note-dismissed',
+    'ai-crysta:first-visit-note-dismissed',
     false,
   );
   const showFirstVisitNote =
@@ -187,16 +182,11 @@ export default function Home() {
     ],
   );
 
-  // Load threads from Supabase for this user and keep only compare page threads in view
+  // Load threads from localStorage (no-auth mode)
   useEffect(() => {
     const load = async () => {
-      if (!user?.id) {
-        setThreads([]);
-        setActiveId(null);
-        return;
-      }
       try {
-        const dbThreads = await fetchThreads(user.id);
+        const dbThreads = await fetchThreads(''); // userId not needed in localStorage mode
         setThreads(dbThreads);
         if (dbThreads.length > 0) {
           const compareThreads = dbThreads.filter((t) => t.pageType === 'compare');
@@ -213,12 +203,12 @@ export default function Home() {
           setActiveId(null);
         }
       } catch (e) {
-        console.warn('Failed to load compare threads from Supabase:', e);
+        console.warn('Failed to load compare threads from localStorage:', e);
       }
     };
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id, activeProjectId]);
+  }, [activeProjectId]);
 
   // group assistant messages by turn for simple compare view
   const pairs = useMemo(() => {
@@ -516,7 +506,7 @@ export default function Home() {
             <div className="hidden lg:block">
               <HeaderBar
                 onOpenMenu={() => setMobileSidebarOpen(true)}
-                title="Open Fiesta"
+                title="Crysta"
                 githubOwner="NiladriHazra"
                 githubRepo="Open-Fiesta"
                 onOpenModelsModal={() => setModelsModalOpen(true)}

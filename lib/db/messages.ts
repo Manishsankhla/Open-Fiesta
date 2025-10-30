@@ -1,49 +1,52 @@
-import { supabase } from '@/lib/db/client'
 import type { ChatMessage } from '@/lib/types'
+import { getStoredThreads, saveStoredThreads } from './localStorage'
+
+// localStorage-based message operations
+// Note: userId parameter is kept for API compatibility but not used (no-auth mode)
 
 export async function addMessage(params: {
   userId: string
   chatId: string
   message: ChatMessage
 }): Promise<void> {
-  const { userId, chatId, message } = params
+  const { chatId, message } = params
 
-  console.log('🔍 addMessage called:', {
-    userId: userId?.substring(0, 8) + '...',
+  console.log('🔍 addMessage called (localStorage):', {
     chatId: chatId?.substring(0, 8) + '...',
     role: message.role,
     content: message.content?.substring(0, 50) + '...',
     modelId: message.modelId,
   })
 
-  const { data, error } = await supabase
-    .from('messages')
-    .insert({
-      chat_id: chatId,
-      owner_id: userId,
-      role: message.role,
-      content: message.content,
-      model: message.modelId ?? null,
-      content_json: null,
-      metadata: null,
-      created_at: message.ts ? new Date(message.ts).toISOString() : new Date().toISOString(),
-    })
-    .select()
-
-  if (error) {
-    console.error('❌ Database error inserting message:', error)
-    throw error
+  const threads = getStoredThreads()
+  const threadIndex = threads.findIndex((t: any) => t.id === chatId)
+  
+  if (threadIndex === -1) {
+    console.warn('Thread not found for message:', chatId)
+    return
   }
 
-  console.log('✅ Message inserted successfully:', data?.[0]?.id)
+  const thread = threads[threadIndex]
+  const messages = thread.messages || []
+  
+  // Add new message
+  messages.push({
+    role: message.role,
+    content: message.content,
+    ts: message.ts || Date.now(),
+    modelId: message.modelId,
+    code: message.code,
+    provider: message.provider,
+    usedKeyType: message.usedKeyType,
+    tokens: message.tokens,
+  })
 
-  // Touch chat updated_at
-  const { error: updateError } = await supabase
-    .from('chats')
-    .update({ updated_at: new Date().toISOString() })
-    .eq('id', chatId)
-
-  if (updateError) {
-    console.error('⚠️ Failed to update chat timestamp:', updateError)
+  // Update thread with new messages
+  threads[threadIndex] = {
+    ...thread,
+    messages,
   }
+
+  saveStoredThreads(threads)
+  console.log('✅ Message saved to localStorage successfully')
 }

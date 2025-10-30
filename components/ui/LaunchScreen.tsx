@@ -22,7 +22,7 @@ interface LaunchScreenProps {
  * class for standalone display.
  *
  * @param backgroundClass - Optional additional CSS classes applied to the outer container.
- * @param title - Main heading text shown on the card (defaults to "Open Fiesta").
+ * @param title - Main heading text shown on the card (defaults to "Crysta").
  * @param subtitle - Subheading text shown below the title (defaults to "Warming things up…").
  * @param logoSrc - URL for the brand/logo image; when falsy the logo block is omitted.
  * @param dismissed - When true, reduces opacity and disables pointer events to hide the screen.
@@ -31,7 +31,7 @@ interface LaunchScreenProps {
  */
 export default function LaunchScreen({
   backgroundClass = '',
-  title = 'Open Fiesta',
+  title = 'Crysta',
   subtitle = 'Warming things up…',
   logoSrc = '/brand.svg',
   dismissed = false,

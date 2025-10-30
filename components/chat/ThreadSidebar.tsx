@@ -12,9 +12,8 @@ import ShareButton from "@/components/chat/ShareButton";
 import ThreadItem from './ThreadItem';
 import { useTheme } from '@/lib/themeContext';
 import { ACCENT_COLORS, BACKGROUND_STYLES } from '@/lib/themes';
-import AuthButton from '@/components/auth/AuthButton';
+// AuthButton removed - no authentication required
 import type { Project } from '@/lib/projects';
-import { useAuth } from '@/lib/auth';
 
 type Props = {
   sidebarOpen: boolean;
@@ -63,18 +62,7 @@ export default function ThreadSidebar({
   const [isThreadSwitching, setIsThreadSwitching] = useState(false);
   const { theme } = useTheme();
   const accent = ACCENT_COLORS[theme.accent];
-  const { user } = useAuth();
-  const displayName =
-    (user?.user_metadata?.full_name as string | undefined) ||
-    (user?.user_metadata?.name as string | undefined) ||
-    (user?.user_metadata?.user_name as string | undefined) ||
-    user?.email ||
-    'User';
-  const avatarUrl =
-    (user?.user_metadata?.avatar_url as string | undefined) ||
-    (user?.user_metadata?.picture as string | undefined) ||
-    undefined;
-  const initials = (displayName?.trim()?.charAt(0)?.toUpperCase() || 'U');
+  // User auth removed - no authentication required
 
   useEffect(() => {
     setIsHydrated(true);
@@ -436,10 +424,7 @@ export default function ThreadSidebar({
 
 
             </div>
-            {/* Footer: Auth / User info */}
-            <div className="mt-auto pt-4 pb-4 px-4 border-t border-white/15 shrink-0">
-              <AuthButton />
-            </div>
+            {/* Footer removed - no authentication required */}
           </>
 
         ) : (
@@ -491,17 +476,7 @@ export default function ThreadSidebar({
               })}
             </div>
 
-            {/* Footer: Auth / User info (collapsed) - Show only user avatar */}
-            <div className="w-full mt-auto pt-4 pb-4 border-t border-white/15 flex justify-center shrink-0">
-              <div className="w-10 h-10 rounded-xl overflow-hidden bg-gradient-to-br from-white/15 to-white/5 flex items-center justify-center ring-2 ring-white/10 shadow-lg">
-                {avatarUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={avatarUrl} alt={displayName} className="h-full w-full object-cover" />
-                ) : (
-                  <span className="text-sm font-bold text-white/90">{initials}</span>
-                )}
-              </div>
-            </div>
+            {/* Footer removed - no authentication required */}
           </div>
         )}
       </aside>
@@ -750,13 +725,7 @@ export default function ThreadSidebar({
               </div>
             </div>
 
-            {/* Footer: Auth / User info (mobile) */}
-            <div className={cn(
-              "absolute bg-black left-0 bottom-0 w-80 max-w-[85vw] p-4 border-t",
-              theme.mode === 'dark' ? "border-white/10" : "border-gray-300/40"
-            )}>
-              <AuthButton />
-            </div>
+            {/* Footer removed - no authentication required */}
           </div>
         </div>
       )}
@@ -868,9 +837,7 @@ export function SimpleThreadSidebar({ isDark, sidebarOpen, onClose, onNewChat }:
       {/* Spacer */}
       <div className="flex-1" />
 
-      <div className="p-4 border-t border-inherit">
-        <AuthButton />
-      </div>
+      {/* Footer removed - no authentication required */}
     </div>
   );
 }

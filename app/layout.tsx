@@ -11,13 +11,13 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   metadataBase: new URL("https://openfiesta.app"),
   title: {
-    default: "Open Fiesta – AI Chat Assistant",
-    template: "%s | Open Fiesta",
+    default: "Crysta – AI Chat Assistant",
+    template: "%s | Crysta",
   },
   description:
-    "Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
-  applicationName: "Open Fiesta",
-  generator: "Open Fiesta",
+    "Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
+  applicationName: "Crysta",
+  generator: "Crysta",
   keywords: [
     // Brand focus: Open Fiesta variations
     "Open Fiesta",
@@ -128,7 +128,7 @@ export const metadata: Metadata = {
   ].join(", "),
   authors: [{ name: "Niladri Hazra", url: "https://github.com/NiladriHazra" }],
   creator: "Niladri Hazra",
-  publisher: "Open Fiesta",
+  publisher: "Crysta",
   robots: {
     index: true,
     follow: true,
@@ -153,7 +153,7 @@ export const metadata: Metadata = {
     "Open Source",
   ].join(", "),
   other: {
-    "application-name": "Open Fiesta",
+    "application-name": "Crysta",
     "apple-mobile-web-app-capable": "yes",
     "mobile-web-app-capable": "yes",
     "theme-color": "#000000",
@@ -164,16 +164,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://openfiesta.app/",
-    siteName: "Open Fiesta",
-    title: "Open Fiesta – Use Open Source LLMs",
+    siteName: "Crysta",
+    title: "Crysta – Use Open Source LLMs",
     description:
-      "Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
+      "Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
     images: [
       {
         url: "https://openfiesta.app/og.png",
         width: 1200,
         height: 630,
-        alt: "Open Fiesta",
+        alt: "Crysta",
       },
     ],
     locale: "en_US",
@@ -182,9 +182,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@byteHumi",
     creator: "@byteHumi",
-    title: "Open Fiesta – AI Chat Assistant",
+    title: "Crysta – AI Chat Assistant",
     description:
-      "Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
+      "Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow.",
     images: ["https://openfiesta.app/og.png"],
   },
 }
@@ -208,28 +208,28 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         {/* Explicit OG/Twitter image for maximum compatibility */}
-        <title>Open Fiesta – Use Open Source LLMs</title>
-        <meta name="description" content="Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
-        <meta property="og:title" content="Open Fiesta – Use Open Source LLMs" />
-        <meta property="og:description" content="Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
+        <title>Crysta – Use Open Source LLMs</title>
+        <meta name="description" content="Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
+        <meta property="og:title" content="Crysta – Use Open Source LLMs" />
+        <meta property="og:description" content="Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
         <meta property="og:url" content="https://openfiesta.app" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Open Fiesta" />
+        <meta property="og:site_name" content="Crysta" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:image" content="https://openfiesta.app/og.png" />
         <meta property="og:image:secure_url" content="https://openfiesta.app/og.png" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Open Fiesta" />
+        <meta property="og:image:alt" content="Crysta" />
         {/* Generic image hints for Google/LinkedIn/others */}
         <meta itemProp="image" content="https://openfiesta.app/og.png" />
         <link rel="image_src" href="https://openfiesta.app/og.png" />
         <meta name="thumbnail" content="https://openfiesta.app/og.png" />
         <meta name="twitter:image" content="https://openfiesta.app/og.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Open Fiesta – Use Open Source LLMs" />
-        <meta name="twitter:description" content="Open Fiesta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
+        <meta name="twitter:title" content="Crysta – Use Open Source LLMs" />
+        <meta name="twitter:description" content="Crysta lets you chat with 300+ AI models—OpenAI, Gemini, Claude, Perplexity, DeepSeek, Grok, and more—in one place. Compare responses and stay in flow." />
         <meta property="twitter:domain" content="openfiesta.app" />
         <meta property="twitter:url" content="https://openfiesta.app" />
         <meta name="twitter:site" content="@byteHumi" />
@@ -243,7 +243,7 @@ export default function RootLayout({
         <meta name="background-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Open Fiesta" />
+        <meta name="apple-mobile-web-app-title" content="Crysta" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-tap-highlight" content="no" />
@@ -271,7 +271,7 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "Open Fiesta",
+            name: "Crysta",
             url: "https://openfiesta.app",
             logo: "https://openfiesta.app/brand.png",
             sameAs: [
@@ -284,7 +284,7 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            name: "Open Fiesta",
+            name: "Crysta",
             url: "https://openfiesta.app",
             potentialAction: {
               "@type": "SearchAction",
@@ -297,7 +297,7 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            name: "Open Fiesta",
+            name: "Crysta",
             description:
               "Chat with and compare 300+ AI models (OpenAI, Claude, Gemini, Perplexity, DeepSeek, Grok) side-by-side in one place.",
             url: "https://openfiesta.app",
@@ -311,7 +311,7 @@ export default function RootLayout({
             },
             publisher: {
               "@type": "Organization",
-              name: "Open Fiesta",
+              name: "Crysta",
               url: "https://openfiesta.app"
             },
             author: {

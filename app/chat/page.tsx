@@ -17,7 +17,6 @@ import { useProjects } from '@/lib/useProjects';
 import ModelsModal from '@/components/modals/ModelsModal';
 import { ChatInterface, ChatInterfaceRef } from '@/components/chat-interface';
 import { useAuth } from '@/lib/auth';
-import AuthModal from '@/components/modals/AuthModal';
 import { cn } from '@/lib/utils'
 import ThreadSidebar from '@/components/chat/ThreadSidebar'
 import HomeAiInput from '@/components/home/HomeAiInput'
@@ -45,30 +44,24 @@ export default function OpenFiestaChat() {
   const { theme } = useTheme()
   const isDark = theme.mode === 'dark'
   
-  const guestMode = (process.env.NODE_ENV !== 'production') && (process.env.NEXT_PUBLIC_GUEST_MODE === 'true')
-  if (process.env.NEXT_PUBLIC_GUEST_MODE === 'true' && process.env.NODE_ENV === 'production') {
-    if (typeof window !== 'undefined') {
-      // eslint-disable-next-line no-console
-      console.warn('[GuestMode] Ignored in production build.')
-    }
-  }
+  // No-auth mode - guest mode always enabled
+  const guestMode = true
   const [isHydrated, setIsHydrated] = useState(false)
   const [showSplash, setShowSplash] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [mobileActionsOpen, setMobileActionsOpen] = useState(false)
   const [modelModalOpen, setModelModalOpen] = useState(false)
-  const [authModalOpen, setAuthModalOpen] = useState(false)
   const [projectModalOpen, setProjectModalOpen] = useState(false)
   const [editingProject, setEditingProject] = useState<Project | null>(null)
-  const [threads, setThreads] = useLocalStorage<ChatThread[]>('ai-fiesta:threads', [])
+  const [threads, setThreads] = useLocalStorage<ChatThread[]>('ai-crysta:threads', [])
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null)
   const [editingMessage, setEditingMessage] = useState<string>('')
-  const [apiKeys] = useLocalStorage<ApiKeys>('ai-fiesta:api-keys', {})
+  const [apiKeys] = useLocalStorage<ApiKeys>('ai-crysta:api-keys', {})
   const [customModels] = useCustomModels()
-  const [selectedHomeModelId, setSelectedHomeModelId] = useLocalStorage<string>('ai-fiesta:selected-home-model', 'open-evil')
+  const [selectedHomeModelId, setSelectedHomeModelId] = useLocalStorage<string>('ai-crysta:selected-home-model', 'open-evil')
   // First-visit modal
-  const [firstVisitSeen, setFirstVisitSeen] = useLocalStorage<boolean>('ai-fiesta:first-visit-seen', false)
+  const [firstVisitSeen, setFirstVisitSeen] = useLocalStorage<boolean>('ai-crysta:first-visit-seen', false)
   const [showFirstVisit, setShowFirstVisit] = useState<boolean>(() => !firstVisitSeen)
   
   const {
@@ -146,25 +139,15 @@ export default function OpenFiestaChat() {
       setLoadingIdsInit: () => {}, // Disabled - using ChatInterface loading instead
       selectedModels: selectedHomeModel ? [selectedHomeModel] : [],
       keys: apiKeys,
-      userId: user?.id || undefined,
+      userId: undefined, // No auth required
     })
   }, [activeThread, selectedHomeModel, apiKeys, user?.id, threads, setThreads])
 
-  // Load threads from Supabase when user is authenticated
+  // Load threads from localStorage (no-auth mode)
   useEffect(() => {
     const load = async () => {
-      // In guest mode, never touch DB
-      if (guestMode) {
-        return
-      }
-      if (!user?.id) {
-        // In guest mode, keep local threads; otherwise clear when logged out
-        setThreads([])
-        setActiveThreadId(null)
-        return
-      }
       try {
-        const dbThreads = await fetchThreads(user.id)
+        const dbThreads = await fetchThreads('') // userId not needed in localStorage mode
         setThreads(dbThreads)
         // Keep current active if still present, else pick most recent home thread
         if (dbThreads.length > 0) {
@@ -182,12 +165,12 @@ export default function OpenFiestaChat() {
           setActiveThreadId(null)
         }
       } catch (e) {
-        console.warn('Failed to load threads from Supabase:', e)
+        console.warn('Failed to load threads from localStorage:', e)
       }
     }
     load()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id, activeProjectId])
+  }, [activeProjectId])
 
   // Header shows no brand logo; the chat avatar displays model logo instead
 
@@ -235,13 +218,7 @@ export default function OpenFiestaChat() {
       return;
     }
     
-    // Check if user is authenticated, allow guest mode bypass
-    if (!user?.id && !guestMode) {
-      setAuthModalOpen(true)
-      // Ensure loader is off if auth required
-      chatRef.current?.setLoading(false)
-      return
-    }
+    // No auth required - proceed immediately
     
     // Clear editing state when submitting
     setEditingMessage('')
@@ -250,37 +227,20 @@ export default function OpenFiestaChat() {
     let createdThreadTemp: ChatThread | null = null
     if (!activeThreadId) {
       const newTitle = content.length > 60 ? content.slice(0, 57) + '…' : content
-      if (guestMode) {
-        const localId = (typeof crypto !== 'undefined' && (crypto as any).randomUUID)
-          ? (crypto as any).randomUUID()
-          : `guest-${Date.now()}`
-        const createdLocal: ChatThread = {
-          id: localId,
+      try {
+        const created = await createThreadDb({
+          userId: '', // userId not needed in localStorage mode
           title: newTitle,
-          messages: [],
-          createdAt: Date.now(),
-          projectId: activeProjectId || undefined,
+          projectId: activeProjectId || null,
           pageType: 'home',
-        }
-        setThreads((prev) => [createdLocal, ...prev])
-        setActiveThreadId(createdLocal.id)
-        createdThreadTemp = createdLocal
-      } else if (user?.id) {
-        try {
-          const created = await createThreadDb({
-            userId: user.id,
-            title: newTitle,
-            projectId: activeProjectId || null,
-            pageType: 'home',
-            initialMessage: null,
-          })
-          setThreads((prev) => [created, ...prev])
-          setActiveThreadId(created.id)
-          createdThreadTemp = created
-        } catch (e) {
-          console.error('❌ Failed to create thread:', e)
-          return;
-        }
+          initialMessage: null,
+        })
+        setThreads((prev) => [created, ...prev])
+        setActiveThreadId(created.id)
+        createdThreadTemp = created
+      } catch (e) {
+        console.error('❌ Failed to create thread:', e)
+        return;
       }
     }
     
@@ -305,14 +265,14 @@ export default function OpenFiestaChat() {
         setLoadingIdsInit: () => {}, // Disabled - using ChatInterface loading instead
         selectedModels: [selectedHomeModel],
         keys: apiKeys,
-        userId: user?.id || undefined,
+        userId: undefined, // No auth required
       });
       
       try {
         await currentChatActions.send(content)
         
-        // Save user message to database
-        if (user?.id && currentThread?.id) {
+        // Save user message to localStorage
+        if (currentThread?.id) {
           const userMsg: ChatMessage = { 
             role: 'user', 
             content: content, 
@@ -320,12 +280,12 @@ export default function OpenFiestaChat() {
           };
           try {
             await addMessageDb({
-              userId: user.id,
+              userId: '', // userId not needed in localStorage mode
               chatId: currentThread.id,
               message: userMsg,
             });
           } catch (e) {
-            console.error('Failed to save user message to DB:', e);
+            console.error('Failed to save user message to localStorage:', e);
           }
         }
         
@@ -407,7 +367,7 @@ export default function OpenFiestaChat() {
     <div className={cn("min-h-screen w-full relative", isDark ? "dark" : "")}> 
       {/* SEO: Primary page heading for branded queries */}
       <h1 className="sr-only">
-        Open Fiesta — chat and compare 300+ AI models (OpenAI, Claude, Gemini, DeepSeek, Grok) in one place
+        Crysta — chat and compare 300+ AI models (OpenAI, Claude, Gemini, DeepSeek, Grok) in one place
       </h1>
 
       {/* Background */}
@@ -464,29 +424,9 @@ export default function OpenFiestaChat() {
             activeId={activeThreadId}
             onSelectThread={(id) => setActiveThreadId(id)}
             onNewChat={async () => {
-              if (guestMode) {
-                const localId = (typeof crypto !== 'undefined' && (crypto as any).randomUUID)
-                  ? (crypto as any).randomUUID()
-                  : `guest-${Date.now()}`
-                const createdLocal: ChatThread = {
-                  id: localId,
-                  title: 'New Chat',
-                  messages: [],
-                  createdAt: Date.now(),
-                  projectId: activeProjectId || undefined,
-                  pageType: 'home',
-                }
-                setThreads(prev => [createdLocal, ...prev])
-                setActiveThreadId(createdLocal.id)
-                return
-              }
-              if (!user?.id) {
-                setAuthModalOpen(true)
-                return
-              }
               try {
                 const created = await createThreadDb({
-                  userId: user.id,
+                  userId: '', // userId not needed in localStorage mode
                   title: 'New Chat',
                   projectId: activeProjectId || null,
                   pageType: 'home',
@@ -502,15 +442,10 @@ export default function OpenFiestaChat() {
             onCloseMobile={() => setMobileSidebarOpen(false)}
             onOpenMobile={() => setMobileSidebarOpen(true)}
             onDeleteThread={async (id) => {
-              if (!guestMode && user?.id) {
-                try {
-                  await deleteThreadDb(user.id, id);
-                } catch (e) {
-                  console.warn('Failed to delete home thread in DB, removing locally:', e);
-                }
-              } else if (!guestMode && !user?.id) {
-                // Not authenticated and not in guest mode -> do nothing
-                return;
+              try {
+                await deleteThreadDb('', id); // userId not needed in localStorage mode
+              } catch (e) {
+                console.warn('Failed to delete home thread in localStorage, removing locally:', e);
               }
               setThreads((prev) => {
                 const next = prev.filter((t) => t.id !== id);
@@ -622,7 +557,7 @@ export default function OpenFiestaChat() {
             <div className="hidden lg:block">
               <HeaderBar
                 onOpenMenu={() => setMobileSidebarOpen(true)}
-                title="Open Fiesta"
+                title="Crysta"
                 githubOwner="NiladriHazra"
                 githubRepo="Open-Fiesta"
                 onOpenModelsModal={() => setModelModalOpen(true)}
@@ -663,11 +598,6 @@ export default function OpenFiestaChat() {
           </div>
         </div>
       </div>
-
-      <AuthModal 
-        isOpen={authModalOpen} 
-        onClose={() => setAuthModalOpen(false)} 
-      />
 
       <ProjectModal
         open={projectModalOpen}

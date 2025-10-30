@@ -16,7 +16,7 @@ import {
 import { generateBadgeVariables } from './badgeSystem';
 
 // LocalStorage key for theme persistence
-export const THEME_STORAGE_KEY = 'ai-fiesta:theme';
+export const THEME_STORAGE_KEY = 'ai-crysta:theme';
 
 // Theme Class Management
 export const applyThemeClasses = (config: ThemeConfig, targetElement?: Element): void => {

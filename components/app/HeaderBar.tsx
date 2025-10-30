@@ -23,7 +23,7 @@ type Props = {
 
 export default function HeaderBar({
   onOpenMenu,
-  title = 'Open Fiesta',
+  title = 'Crysta',
   githubOwner,
   githubRepo,
   className,

@@ -30,7 +30,7 @@ export async function callOpenRouter(args: {
     body: JSON.stringify({
       ...args,
       referer: typeof window !== 'undefined' ? window.location.origin : undefined,
-      title: 'AI Fiesta',
+      title: 'AI Crysta',
     }),
     signal: args.signal,
   });
@@ -125,7 +125,7 @@ export async function streamOpenRouter(
       body: JSON.stringify({
         ...args,
         referer: typeof window !== 'undefined' ? window.location.origin : undefined,
-        title: 'AI Fiesta',
+        title: 'AI Crysta',
       }),
       signal: args.signal,
     });

@@ -4,7 +4,7 @@ import type { AiModel } from '@/lib/types';
 
 export type CustomModel = AiModel & { custom: true };
 
-const STORAGE_KEY = 'ai-fiesta:custom-models';
+const STORAGE_KEY = 'ai-crysta:custom-models';
 
 export function useCustomModels() {
   const [models, setModels] = useLocalStorage<CustomModel[]>(STORAGE_KEY, []);
