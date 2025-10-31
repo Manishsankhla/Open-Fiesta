@@ -36,7 +36,7 @@ export default function StartupSprintLanding() {
       <nav className="flex items-center justify-between px-6 pt-7 relative max-w-7xl mx-auto z-10">
         <div className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/Web_logo.svg" alt="Open Fiesta" className="h-10 md:h-12 lg:h-14 w-auto" />
+          <img src="/Web_logo.svg" alt="Crysta" className="h-10 md:h-12 lg:h-14 w-auto" />
         </div>
 
         <div className="hidden md:flex items-center gap-8">

@@ -93,10 +93,10 @@ export default function ChatRenderer({
             <Link
               href="/"
               className="flex items-center gap-2 text-white/70 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent rounded"
-              aria-label="Return to Open Fiesta main application"
+              aria-label="Return to Crysta main application"
             >
               <ArrowLeft size={16} aria-hidden="true" />
-              <span>Back to Open Fiesta</span>
+              <span>Back to Crysta</span>
             </Link>
 
             <Link
