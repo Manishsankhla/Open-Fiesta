@@ -2,6 +2,33 @@ import { AiModel } from './types';
 
 // Base catalog; user can toggle/select up to 5
 export const MODEL_CATALOG: AiModel[] = [
+  // OpenRouter primary models
+  {
+    id: 'openai/gpt-4-turbo',
+    label: 'GPT-4 Turbo',
+    provider: 'openrouter',
+    model: 'openai/gpt-4-turbo',
+    good: true,
+  },
+  {
+    id: 'anthropic/claude-3.5-sonnet',
+    label: 'Claude 3.5 Sonnet',
+    provider: 'openrouter',
+    model: 'anthropic/claude-3.5-sonnet',
+    good: true,
+  },
+  {
+    id: 'openai/gpt-3.5-turbo',
+    label: 'GPT-3.5 Turbo',
+    provider: 'openrouter',
+    model: 'openai/gpt-3.5-turbo',
+  },
+  {
+    id: 'google/gemini-pro',
+    label: 'Gemini Pro',
+    provider: 'openrouter',
+    model: 'google/gemini-pro',
+  },
   {
     id: 'gemini-2.5-pro',
     label: 'Gemini 2.5 Pro',
@@ -378,14 +405,6 @@ export const MODEL_CATALOG: AiModel[] = [
     label: 'Elixpo Search',
     provider: 'open-provider',
     model: 'elixposearch',
-    free: true,
-    category: 'text',
-  },
-  {
-    id: 'open-evil',
-    label: 'Evil Uncensored',
-    provider: 'open-provider',
-    model: 'evil',
     free: true,
     category: 'text',
   },

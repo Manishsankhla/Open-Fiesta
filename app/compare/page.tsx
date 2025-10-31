@@ -49,11 +49,10 @@ export default function Home() {
   // No auth required - users can access immediately
 
   const [selectedIds, setSelectedIds] = useLocalStorage<string[]>('ai-crysta:selected-models', [
-    'open-gpt-5-nano', // GPT-5 Nano
-    'open-midijourney', // Midjourney
-    'open-evil',
-    'open-mistral', // Mistral Small 3.1
-    'open-llamascout', // Llama Scout
+    'openai/gpt-4-turbo', // GPT-4 Turbo (OpenRouter)
+    'anthropic/claude-3.5-sonnet', // Claude 3.5 Sonnet (OpenRouter)
+    'openai/gpt-3.5-turbo', // GPT-3.5 Turbo (OpenRouter)
+    'google/gemini-pro', // Gemini Pro (OpenRouter)
   ]);
   const [keys] = useLocalStorage<ApiKeys>('ai-crysta:keys', {});
   const [threads, setThreads] = useLocalStorage<ChatThread[]>('ai-crysta:threads', []);

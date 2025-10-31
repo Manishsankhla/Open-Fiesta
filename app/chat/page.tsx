@@ -59,7 +59,7 @@ export default function OpenFiestaChat() {
   const [editingMessage, setEditingMessage] = useState<string>('')
   const [apiKeys] = useLocalStorage<ApiKeys>('ai-crysta:api-keys', {})
   const [customModels] = useCustomModels()
-  const [selectedHomeModelId, setSelectedHomeModelId] = useLocalStorage<string>('ai-crysta:selected-home-model', 'open-evil')
+  const [selectedHomeModelId, setSelectedHomeModelId] = useLocalStorage<string>('ai-crysta:selected-home-model', 'openai/gpt-4-turbo')
   // First-visit modal
   const [firstVisitSeen, setFirstVisitSeen] = useLocalStorage<boolean>('ai-crysta:first-visit-seen', false)
   const [showFirstVisit, setShowFirstVisit] = useState<boolean>(() => !firstVisitSeen)
