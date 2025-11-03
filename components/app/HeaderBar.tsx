@@ -74,7 +74,7 @@ export default function HeaderBar({
       <div className="flex-1 text-center hidden sm:block">
         <h1 className="text-xl md:text-2xl font-extrabold tracking-tight select-none pointer-events-none inline-flex items-center justify-center">
           <Image
-            src={isDark ? "/Web_logo.svg" : "/Web_logo_light.svg"}
+            src="/brand.svg"
             alt="Crysta logo"
             width={100}
             height={100}

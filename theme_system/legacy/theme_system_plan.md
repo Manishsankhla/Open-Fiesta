@@ -1,4 +1,4 @@
-# Open Fiesta Theme System – Consolidated Implementation Snapshot
+# Crysta Theme System – Consolidated Implementation Snapshot
 
 Date: 2025-08-20  
 Version: 2.1  

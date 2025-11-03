@@ -1,4 +1,4 @@
-# Open Fiesta Theme System Overview
+# Crysta Theme System Overview
 
 Date: 2025-08-20  
 Status: Stable, polishing tasks pending (minor)

@@ -1,4 +1,4 @@
-# Open-Fiesta Gemini Assistant Context
+# Crysta Gemini Assistant Context
 
 ## Project Overview
 

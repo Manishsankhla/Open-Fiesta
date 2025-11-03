@@ -36,7 +36,7 @@ export default function StartupSprintLanding() {
       <nav className="flex items-center justify-between px-6 pt-7 relative max-w-7xl mx-auto z-10">
         <div className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/Web_logo.svg" alt="Crysta" className="h-10 md:h-12 lg:h-14 w-auto" />
+          <img src="/brand.svg" alt="Crysta" className="h-10 md:h-12 lg:h-14 w-auto" />
         </div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -209,13 +209,13 @@ export default function StartupSprintLanding() {
       </div>
     </div>
     
-    {/* Large OPEN FIESTA text before footer */}
+    {/* Large CRYSTA text before footer */}
     <div className="bg-black py-8 md:py-16 flex items-center justify-center overflow-hidden">
       <h1
         className="text-[clamp(2.25rem,18vw,20rem)] text-white uppercase tracking-[0.06em] leading-none select-none animate-pulse text-center whitespace-nowrap max-w-full"
         style={{ fontFamily: 'Impact, "Arial Black", "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Bold", sans-serif', fontWeight: 900, fontStretch: 'condensed' }}
       >
-        OPEN FIESTA
+        CRYSTA
       </h1>
     </div>
     

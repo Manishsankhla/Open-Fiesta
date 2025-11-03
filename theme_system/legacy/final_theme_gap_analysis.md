@@ -1,7 +1,7 @@
 # Theme System Gap Analysis (Final Consolidated)
 
 Date: 2025-08-20  
-Scope: Open-Fiesta theming (accents, backgrounds, chat input styles, badges, fonts, accessibility, docs)
+Scope: Crysta theming (accents, backgrounds, chat input styles, badges, fonts, accessibility, docs)
 
 ## 1. Implemented Surface (✅ Complete)
 

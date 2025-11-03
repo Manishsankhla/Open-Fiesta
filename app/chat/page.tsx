@@ -39,7 +39,7 @@ import SupportDropdown from '@/components/support-dropdown'
 import ProjectModal from '@/components/modals/ProjectModal'
 import { Project } from '@/lib/projects'
 
-export default function OpenFiestaChat() {
+export default function CrystaChat() {
   const { user } = useAuth()
   const { theme } = useTheme()
   const isDark = theme.mode === 'dark'

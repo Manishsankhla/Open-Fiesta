@@ -10,21 +10,21 @@ const ibmMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Press — Open Fiesta",
-  description: "Press kit, logos, and boilerplate for Open Fiesta.",
+  title: "Press — Crysta",
+  description: "Press kit, logos, and boilerplate for Crysta.",
   alternates: { canonical: "/press" },
   openGraph: {
-    title: "Press — Open Fiesta",
-    description: "Press kit, logos, and boilerplate for Open Fiesta.",
+    title: "Press — Crysta",
+    description: "Press kit, logos, and boilerplate for Crysta.",
     url: "https://openfiesta.app/press",
-    siteName: "Open Fiesta",
-    images: [{ url: "https://openfiesta.app/og.png", width: 1200, height: 630, alt: "Open Fiesta" }],
+    siteName: "Crysta",
+    images: [{ url: "https://openfiesta.app/og.png", width: 1200, height: 630, alt: "Crysta" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Press — Open Fiesta",
-    description: "Press kit, logos, and boilerplate for Open Fiesta.",
+    title: "Press — Crysta",
+    description: "Press kit, logos, and boilerplate for Crysta.",
     images: ["https://openfiesta.app/og.png"],
   },
 }
@@ -56,9 +56,9 @@ export default function PressPage() {
         </p>
 
         {/* Title */}
-        <h1 className="text-zinc-100 text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">Open Fiesta Press Kit</h1>
+        <h1 className="text-zinc-100 text-3xl sm:text-4xl md:text-5xl leading-tight mb-4">Crysta Press Kit</h1>
         <p className="text-zinc-300/90 text-sm sm:text-base leading-relaxed max-w-3xl">
-          Open Fiesta lets you chat with and compare <span className="font-semibold text-zinc-100">300+ AI models</span> — OpenAI, Claude,
+          Crysta lets you chat with and compare <span className="font-semibold text-zinc-100">300+ AI models</span> — OpenAI, Claude,
           Gemini, Perplexity, DeepSeek, Grok, and more — side‑by‑side in one place.
         </p>
 
@@ -68,7 +68,7 @@ export default function PressPage() {
         {/* Boilerplate */}
         <h2 className="text-[11px] tracking-[0.22em] uppercase text-zinc-400 mb-3">Boilerplate</h2>
         <p className="text-zinc-300/90 text-sm sm:text-base leading-relaxed max-w-3xl">
-          Open Fiesta is an elegant, fast AI chat assistant that makes it easy to compare responses
+          Crysta is an elegant, fast AI chat assistant that makes it easy to compare responses
           across 300+ models in one interface, so you can think, write, and build faster.
           Learn more at <a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="https://openfiesta.app" target="_blank" rel="noreferrer">openfiesta.app</a>.
         </p>
@@ -79,8 +79,7 @@ export default function PressPage() {
           <ul className="space-y-2 text-zinc-300/90 text-sm sm:text-base">
             <li><a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="/brand.svg" download>Logo (SVG)</a></li>
             <li><a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="/brand.png" download>Social image (PNG, 1200×630)</a></li>
-            <li><a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="/Web_logo.svg" download>App mark (SVG, dark)</a></li>
-            <li><a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="/Web_logo_light.svg" download>App mark (SVG, light)</a></li>
+            <li><a className="underline decoration-zinc-600 hover:decoration-zinc-400" href="/brand.svg" download>App mark (SVG)</a></li>
           </ul>
         </div>
 

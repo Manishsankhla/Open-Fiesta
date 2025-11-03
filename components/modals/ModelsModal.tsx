@@ -560,7 +560,7 @@ export default function ModelsModal({
             title={name}
             models={grouped[name]}
             iconUrl={isDark ? (BRAND_ICONS[name]?.darkUrl ?? '/brand.svg') : (BRAND_ICONS[name]?.lightUrl ?? '/brand.svg')}
-            iconAlt={BRAND_ICONS[name]?.alt ?? 'Open Fiesta'}
+            iconAlt={BRAND_ICONS[name]?.alt ?? 'Crysta'}
           />
         ));
     });

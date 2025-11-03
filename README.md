@@ -1,4 +1,4 @@
-# Open-Fiesta
+# Crysta
 
 <video controls poster="./public/osfiesta.png" width="800">
   <source src="./public/OSFiesta.mp4" type="video/mp4" />
@@ -10,7 +10,7 @@
 
 <!-- Fallback link for renderers that don't support <video> -->
 
-[![Open-Fiesta](public/osfiesta.png)](public/OSFiesta.mp4)
+[![Crysta](public/osfiesta.png)](public/OSFiesta.mp4)
 
 An open-source, multi-model AI chat playground built with Next.js App Router. Switch between providers and models, compare outputs side-by-side, and use optional web search and image attachments.
 

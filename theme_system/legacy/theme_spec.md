@@ -1,7 +1,7 @@
 # Theme System Specification (Concise)
 
 Date: 2025-08-20
-Scope: Contract for extending Open-Fiesta theme system.
+Scope: Contract for extending Crysta theme system.
 
 ## 1. Root Theme Config Keys
 
